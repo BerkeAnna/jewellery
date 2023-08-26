@@ -6,7 +6,7 @@ require('chai')
 
 const GemstoneExtraction = artifacts.require('./GemstoneExtraction.sol')
 
-contract('GemstoneExtraction', ([deployer, seller, buyer]) => {//todo
+contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
     let gemstoneExtraction 
 
     before(async () => {
@@ -32,17 +32,21 @@ contract('GemstoneExtraction', ([deployer, seller, buyer]) => {//todo
         let result, gemsCount
 
         before(async () => {
-            result = await gemstoneExtraction.gemMining('type', web3.utils.toWei('1', 'Ether'), 'africa', 'asd', { from: seller})
+            result = await gemstoneExtraction.gemMining('type', web3.utils.toWei('1', 'Ether'), 'africa', 'asd', { from: miner})
             gemsCount = await gemstoneExtraction.minedGemCount()
         })
 
         it('mining gems', async () => {
            //SUCCESS
             assert.equal(gemsCount, 1)
-           // console.log(result.logs)
-         //  const event = result.logs[0].args
-          // assert.equal(event.id.toNumber(), gemsCount.toNumber(), 'id is correct')
-           
+            //console.log(result.logs)
+            const event = result.logs[0].args
+            assert.equal(event.id.toNumber(), gemsCount.toNumber(), 'id is correct')
+            assert.equal(event.gemType, 'type', 'type is correct')
+            assert.equal(event.miningLocation, 'africa', 'location is correct')
+            assert.equal(event.price, '1000000000000000000' , 'price is correct')
+            assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(event.miner, miner , 'miner is correct')
 
         })
 
