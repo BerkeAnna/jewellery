@@ -46,33 +46,39 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
             assert.equal(event.miningLocation, 'africa', 'location is correct')
             assert.equal(event.price, '1000000000000000000' , 'price is correct')
             assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
-            assert.equal(event.miner, miner , 'miner is correct')
+            assert.equal(event.owner, miner , 'miner is correct')
 
+            //Failure
+            await gemstoneExtraction.gemMining('', web3.utils.toWei('1', 'Ether'), { from: miner}).should.be.rejected;
+            await gemstoneExtraction.gemMining('type', 0, { from: miner}).should.be.rejected;
         })
 
-      /*  it('lists products', async () => {
-          const product = await marketplace.products(productCount)
-          assert.equal(product.id.toNumber(), productCount.toNumber(), 'id is correct')
-          assert.equal(product.name, 'IPhone X', 'name is correct')
-          assert.equal(product.price, '1000000000000000000' , 'price is correct')
-          assert.equal(product.owner, seller , 'owner is correct')
-          assert.equal(product.purchased, false , 'purchased is correct')
+        it('lists gems', async () => {
+          const gems = await gemstoneExtraction.minedGems(gemsCount)
+          assert.equal(gems.id.toNumber(), gemsCount.toNumber(), 'id is correct')
+            assert.equal(gems.gemType, 'type', 'type is correct')
+            assert.equal(gems.miningLocation, 'africa', 'location is correct')
+            assert.equal(gems.price, '1000000000000000000' , 'price is correct')
+            assert.equal(gems.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(gems.owner, miner , 'miner is correct')
          })
 
-        it('sells products', async () => {
-            let oldSellerBalance 
+        it('sells gems', async () => {
+           /* let oldSellerBalance 
             oldSellerBalance = await web3.eth.getBalance(seller)
             oldSellerBalance = new web3.utils.BN(oldSellerBalance)
-
-            result = await marketplace.purchaseProduct(productCount, { from: buyer, value: web3.utils.toWei('1', 'Ether') } )
+*/
+            result = await gemstoneExtraction.purchaseGem(gemsCount, { from: buyer, value: web3.utils.toWei('1', 'Ether') } )
 
             const event = result.logs[0].args
-            assert.equal(event.id.toNumber(), productCount.toNumber(), 'id is correct')
-            assert.equal(event.name, 'IPhone X', 'name is correct')
+            assert.equal(event.id.toNumber(), gemsCount.toNumber(), 'id is correct')
+            assert.equal(event.gemType, 'type', 'type is correct')
+            assert.equal(event.miningLocation, 'africa', 'location is correct')
             assert.equal(event.price, '1000000000000000000' , 'price is correct')
-            assert.equal(event.owner, buyer , 'owner is correct')
-            assert.equal(event.purchased, true , 'purchased is correct')
-
+            assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(event.owner, buyer , 'buyer is correct')
+        }) //todo: delete this line
+/*
             let newSellerBalance
             newSellerBalance = await web3.eth.getBalance(seller)
             newSellerBalance = new web3.utils.BN(newSellerBalance)
