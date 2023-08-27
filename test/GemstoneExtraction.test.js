@@ -64,10 +64,10 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
          })
 
         it('sells gems', async () => {
-           /* let oldSellerBalance 
-            oldSellerBalance = await web3.eth.getBalance(seller)
-            oldSellerBalance = new web3.utils.BN(oldSellerBalance)
-*/
+            let oldMinerBalance 
+            oldMinerBalance = await web3.eth.getBalance(miner)
+            oldMinerBalance = new web3.utils.BN(oldMinerBalance)
+
             result = await gemstoneExtraction.purchaseGem(gemsCount, { from: buyer, value: web3.utils.toWei('1', 'Ether') } )
 
             const event = result.logs[0].args
@@ -77,30 +77,30 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
             assert.equal(event.price, '1000000000000000000' , 'price is correct')
             assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
             assert.equal(event.owner, buyer , 'buyer is correct')
-        }) //todo: delete this line
-/*
-            let newSellerBalance
-            newSellerBalance = await web3.eth.getBalance(seller)
-            newSellerBalance = new web3.utils.BN(newSellerBalance)
+
+
+            let newMinerBalance
+            newMinerBalance = await web3.eth.getBalance(miner)
+            newMinerBalance = new web3.utils.BN(newMinerBalance)
 
             let price
             price = web3.utils.toWei('1', 'Ether')
             price = new web3.utils.BN(price)
 
-            //console.log(oldSellerBalance, newSellerBalance, price)
-            
-            const expectedBalance = oldSellerBalance.add(price)
-            assert.equal(newSellerBalance.toString(), expectedBalance.toString())
+           
+            const expectedBalance = oldMinerBalance.add(price)
+            assert.equal(newMinerBalance.toString(), expectedBalance.toString())
 
-            await marketplace.purchaseProduct(99, { from: buyer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
 
-            await marketplace.purchaseProduct(productCount, { from: buyer, value: web3.utils.toWei('0.5', 'Ether')}).should.be.rejected;
+            await gemstoneExtraction.purchaseGem(99, { from: buyer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
 
-            await marketplace.purchaseProduct(productCount, { from: deployer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
+            await gemstoneExtraction.purchaseGem(gemsCount, { from: buyer, value: web3.utils.toWei('0.5', 'Ether')}).should.be.rejected;
 
-            await marketplace.purchaseProduct(productCount, { from: buyer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
+            await gemstoneExtraction.purchaseGem(gemsCount, { from: deployer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
+
+            await gemstoneExtraction.purchaseGem(gemsCount, { from: buyer, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
 
         })
-    */    })
+        })
     
 })
