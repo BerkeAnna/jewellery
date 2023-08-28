@@ -3,6 +3,7 @@ import Web3 from 'web3'
 import './App.css';
 import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
+import Main from './Main'
 
 class App extends Component {
 
@@ -34,7 +35,11 @@ class App extends Component {
    
     if(networkData){
       const gemsE = web3.eth.Contract(GemstoneExtraction.abi, networkData.address)
-      console.log(gemsE)
+      this.setState({ gemsE })
+      //const gemCounts = await gemsE.methods.gemCounts().call()
+      
+      //console.log(gemCounts)
+      this.setState({ loading: false })
     }else{
       window.alert('Gemstone extraction contract not deployed to detected network.')
     }
@@ -66,37 +71,34 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
-      gemCounts: 0,
+      gemCounts: 0, //TODO: rename gemCount
       gems: [], // Inicializáld a products állapotot üres tömbként
       loading: true // Inicializáld a loading állapotot true-ként
     };
-/*
-    this.createProduct = this.createProduct.bind(this)
+
+    this.gemMining = this.gemMining.bind(this)
+    /*
     this.purchaseProduct = this.purchaseProduct.bind(this)
     */
   }
 
+  gemMining(gemType, price, miningLocation, extractionMethod ){
+    this.setState({ loading: true })
+    this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod ).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    })
+  }
+
   render() {
     return (
-      <div>
-       <Navbar account={this.state.account}/>
+      <div><Navbar setAccount={this.setAccount} />
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <h1>Dapp University Starter Kit</h1>
-                <p>
-                  Edit <code>src/components/App.js</code> and save to reload.
-                </p>
-                <a
-                  className="App-link"
-                  href="http://www.dappuniversity.com/bootcamp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LEARN BLOCKCHAIN <u><b>NOW! </b></u>
-                </a>
-              </div>
+            <main role="main" className="col-lg-12 d-flex">
+              {this.state.loading 
+                ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
+                : <Main gemMining={this.gemMining}/> }
             </main>
           </div>
         </div>

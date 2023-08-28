@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Web3 from 'web3'
 
 class Navbar extends Component {
 
@@ -15,8 +16,8 @@ class Navbar extends Component {
         </a>
         <ul className='navbar-nav px-3'>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
-            <small className='text-white'><span id='account'>{this.props.account}</span></small>
-          </li>
+          <small className='text-white'><span id='account'>{this.props.account}</span></small>
+            </li>
         </ul>
       </nav>
     );
