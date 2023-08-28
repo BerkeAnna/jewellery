@@ -36,43 +36,28 @@ class App extends Component {
     if(networkData){
       const gemsE = web3.eth.Contract(GemstoneExtraction.abi, networkData.address)
       this.setState({ gemsE })
-      //const gemCounts = await gemsE.methods.gemCounts().call()
-      
-      //console.log(gemCounts)
+      const minedGemCount = await gemsE.methods.minedGemCount().call()
+      console.log(minedGemCount)
+      console.log(gemsE.methods.minedGemCount())
+      for(var i = 1 ; i<= minedGemCount; i++){
+        const gem = await gemsE.methods.minedGems(i).call()
+        this.setState({
+          minedGems: [...this.state.minedGems, gem]
+        })
+      }
       this.setState({ loading: false })
     }else{
       window.alert('Gemstone extraction contract not deployed to detected network.')
     }
-    /*
-    if(networkData) {
-      const marketplace = web3.eth.Contract(Marketplace.abi, networkData.address)
-      this.setState({ marketplace })
-      const productCount = await marketplace.methods.productCount().call()
-      //console.log("mets " + marketplace.methods)
-      //console.log("prodc:" + marketplace.methods.productCount())
-      console.log("productCount: " + productCount )
-      this.setState({ productCount })
-
-      for(var i = 1 ; i<= productCount; i++){
-        const product = await marketplace.methods.products(i).call()
-        this.setState({
-          products: [...this.state.products, product]
-        })
-      }
-      this.setState({ loading: false })
-      console.log(this.state.products)
-    } else {
-      window.alert('Marketplace contract not deployed to detected network.')
-    }
-    */
+   
   }
 
   constructor(props) {
     super(props)
     this.state = {
       account: '',
-      gemCounts: 0, //TODO: rename gemCount
-      gems: [], // Inicializáld a products állapotot üres tömbként
+      minedGemCount: 0, //IMPORTANT this name is same in .sol
+      minedGems: [], // Inicializáld a products állapotot üres tömbként
       loading: true // Inicializáld a loading állapotot true-ként
     };
 
