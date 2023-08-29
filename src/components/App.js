@@ -4,6 +4,7 @@ import './App.css';
 import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
 import Main from './Main'
+import MinedGemForm from './forms/MinedGemForm';
 
 class App extends Component {
 
@@ -88,6 +89,8 @@ class App extends Component {
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex">
+              
+            <MinedGemForm gemMining={this.gemMining} />
               {this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
                 : <Main 
