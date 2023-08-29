@@ -5,6 +5,8 @@ import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
 import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
+import ProcessingList from './products/ProcessingList'
+import MinedGemsList from './products/MinedGemsList'
 
 class App extends Component {
 
@@ -88,16 +90,30 @@ class App extends Component {
       <div>  <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 d-flex">
-              
-            <MinedGemForm gemMining={this.gemMining} />
-              {this.state.loading 
-                ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
-                : <Main 
-                  minedGems = {this.state.minedGems} 
-                  gemMining={this.gemMining}
-                  purchaseGem={this.purchaseGem}
-                  /> }
+            <main role="main" className="col-lg-12 d-flex"> 
+            
+            <div id="content">
+              <MinedGemForm gemMining={this.gemMining} />
+              {this.state.loading ? (
+                <div id="loader" className="text-center">
+                  <p className="text-center">Loading...</p>
+                </div>
+              ) : (
+                <div>
+                  <MinedGemsList
+                    minedGems={this.state.minedGems}
+                    gemMining={this.gemMining}
+                    purchaseGem={this.purchaseGem}
+                  />
+                  <ProcessingList
+                    minedGems={this.state.minedGems}
+                    gemMining={this.gemMining}
+                    purchaseGem={this.purchaseGem}
+                  />
+                </div>
+              )}
+            </div>
+
             </main>
           </div>
         </div>
