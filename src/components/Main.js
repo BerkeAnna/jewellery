@@ -75,15 +75,18 @@ class Main extends Component {
                                         <td>{window.web3.utils.fromWei(minedGem.price.toString(), 'Ether')} Eth</td>
                                         <td>{minedGem.owner} </td>
                                         <td>
-                                            <button 
-                                                name = {minedGem.id}
-                                                value={minedGem.price}
-                                                onClick={(event) => { 
-                                                    this.props.purchaseGem(event.target.name, event.target.value)
-                                                 } }
-                                            >
-                                            Buy
-                                            </button>
+                                            { !minedGem.purchased 
+                                            ? <button 
+                                                    name = {minedGem.id}
+                                                    value={minedGem.price}
+                                                    onClick={(event) => { 
+                                                        this.props.purchaseGem(event.target.name, event.target.value)
+                                                    } }
+                                                >
+                                                Buy
+                                              </button>
+                                            : null
+                                            }
                                         </td>
                                     </tr>
 

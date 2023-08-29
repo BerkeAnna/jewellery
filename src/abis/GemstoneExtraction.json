@@ -5866,6 +5866,12 @@
       "links": {},
       "address": "0xcB06d056DcE53508cD5c5c556CCDd7B0511288C6",
       "transactionHash": "0xa2d1b654cfb25902138a6e63c63819865ddc5bb0c3ee83e70d4a1ae10bebb579"
+    },
+    "11155111": {
+      "events": {},
+      "links": {},
+      "address": "0xc854781da09167faabcf404e529d167fe37b73e6",
+      "transactionHash": "0xcd485d2443621a36c23ce087c7d9e9261d498435813c23961f15f9925197be47"
     }
   },
   "schemaVersion": "3.4.15",
