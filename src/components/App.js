@@ -84,7 +84,7 @@ class App extends Component {
 
   render() {
     return (
-      <div><Navbar setAccount={this.setAccount} />
+      <div>  <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex">
