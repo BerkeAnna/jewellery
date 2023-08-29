@@ -65,7 +65,30 @@ class Main extends Component {
                                 </tr>
                             </thead>
                             <tbody >
-                              
+                              {this.props.minedGems.map((minedGem, key) => {
+                                return(
+                                    <tr key={key}>
+                                        <th scope="row">{minedGem.id.toString()}</th>
+                                        <td>{minedGem.gemType}</td>
+                                        <td>{minedGem.miningLocation}</td>
+                                        <td>{minedGem.extractionMethod}</td>
+                                        <td>{window.web3.utils.fromWei(minedGem.price.toString(), 'Ether')} Eth</td>
+                                        <td>{minedGem.owner} </td>
+                                        <td>
+                                            <button 
+                                                name = {minedGem.id}
+                                                value={minedGem.price}
+                                                onClick={(event) => { 
+                                                    this.props.purchaseGem(event.target.name, event.target.value)
+                                                 } }
+                                            >
+                                            Buy
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                )
+                              })}
                             
                             </tbody>
                         </table>

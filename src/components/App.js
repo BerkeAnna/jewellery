@@ -62,14 +62,21 @@ class App extends Component {
     };
 
     this.gemMining = this.gemMining.bind(this)
-    /*
-    this.purchaseProduct = this.purchaseProduct.bind(this)
-    */
+    this.purchaseGem = this.purchaseGem.bind(this)
+    
   }
 
   gemMining(gemType, price, miningLocation, extractionMethod ){
     this.setState({ loading: true })
     this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod ).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    })
+  }
+
+  purchaseGem(id, price ){
+    this.setState({ loading: true })
+    this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price })
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
     })
@@ -83,7 +90,11 @@ class App extends Component {
             <main role="main" className="col-lg-12 d-flex">
               {this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
-                : <Main gemMining={this.gemMining}/> }
+                : <Main 
+                  minedGems = {this.state.minedGems} 
+                  gemMining={this.gemMining}
+                  purchaseGem={this.purchaseGem}
+                  /> }
             </main>
           </div>
         </div>
