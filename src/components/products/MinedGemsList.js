@@ -14,13 +14,13 @@ class Main extends Component {
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Owner</th>
+                                <th scope="col">Owner</th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody >
                               {this.props.minedGems.map((minedGem, key) => {
                                 return(
-                                    
                                         !minedGem.purchased ? (
                                             <tr key={key}>
                                               <th scope="row">{minedGem.id.toString()}</th>
@@ -29,6 +29,7 @@ class Main extends Component {
                                               <td>{minedGem.extractionMethod}</td>
                                               <td>{window.web3.utils.fromWei(minedGem.price.toString(), 'Ether')} Eth</td>
                                               <td>{minedGem.owner}</td>
+                                              <td>{minedGem.pointOfProcessing}</td>
                                               <td>
                                                 <button
                                                   name={minedGem.id}
