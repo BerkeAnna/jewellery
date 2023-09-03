@@ -9,6 +9,7 @@ import ProcessingList from './products/ProcessingList'
 import MinedGemsList from './products/MinedGemsList'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import OwnedByUser from './OwnedByUser';
 
 
 
@@ -92,13 +93,13 @@ class App extends Component {
   render() {
     return (
       
-      <div className='d-flex'> 
+      <div className='col-6'> 
         <Router>
           {/* Navbar mindig látható */}
           <Navbar account={this.state.account} />
           <Routes>
             {/* Az alábbi útvonalakon csak a Dashboard jelenik meg */}
-            <Route path="/dashboard" element={<MinedGemForm gemMining={this.gemMining} />} />
+            <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
                                                               purchaseGem={this.purchaseGem}
@@ -106,6 +107,11 @@ class App extends Component {
             <Route path="/processingList" element={<ProcessingList  minedGems={this.state.minedGems}
                                                                     gemMining={this.gemMining}
                                                                     purchaseGem={this.purchaseGem}
+                                                                    />} />
+            <Route path="/ownMinedGems" element={<OwnedByUser  minedGems={this.state.minedGems}
+                                                               gemMining={this.gemMining}
+                                                               purchaseGem={this.purchaseGem}
+                                                               account={this.state.account}
                                                                     />} />
           </Routes>
         </Router> 
