@@ -4,7 +4,7 @@ class MinedGemForm extends Component {
 
   render() {
     return (
-            <div id="content">
+            <div id="content" className='pt-5 pl-3'>
                 <h1>Add gem</h1>
                 <form onSubmit={(event) => {
                     event.preventDefault()

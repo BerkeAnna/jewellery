@@ -20,7 +20,10 @@ class Navbar extends Component {
             <small className='text-white'><Link to="/dashboard">Dashboard</Link></small>
           </li>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
-            <small className='text-white'><Link to="/user">User</Link></small>
+            <small className='text-white'><Link to="/minedGems">Mined Gems</Link></small>
+          </li>
+          <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
+            <small className='text-white'><Link to="/processingList">Processing List</Link></small>
           </li>
         </ul>
         <ul className='navbar-nav px-3'>

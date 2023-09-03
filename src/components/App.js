@@ -7,6 +7,7 @@ import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
 import ProcessingList from './products/ProcessingList'
 import MinedGemsList from './products/MinedGemsList'
+import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
@@ -93,18 +94,27 @@ class App extends Component {
       
       <div className='d-flex'> 
         <Router>
+          {/* Navbar mindig látható */}
           <Navbar account={this.state.account} />
           <Routes>
-              <Route path="/processingList" component={ProcessingList} />
-              <Route path="/minedGemsList" component={MinedGemsList} />
+            {/* Az alábbi útvonalakon csak a Dashboard jelenik meg */}
+            <Route path="/dashboard" element={<MinedGemForm gemMining={this.gemMining} />} />
+            <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
+                                                              gemMining={this.gemMining}
+                                                              purchaseGem={this.purchaseGem}
+                                                              />} />
+            <Route path="/processingList" element={<ProcessingList  minedGems={this.state.minedGems}
+                                                                    gemMining={this.gemMining}
+                                                                    purchaseGem={this.purchaseGem}
+                                                                    />} />
           </Routes>
-      </Router> 
+        </Router> 
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex"> 
             
             <div id="content">
-              <MinedGemForm gemMining={this.gemMining} />
+             {/* <MinedGemForm gemMining={this.gemMining} /> 
               {this.state.loading ? (
                 <div id="loader" className="text-center">
                   <p className="text-center">Loading...</p>
@@ -123,6 +133,7 @@ class App extends Component {
                   />
                 </div>
               )}
+              */}
             </div>
 
             </main>
