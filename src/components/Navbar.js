@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3'
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -14,6 +15,14 @@ class Navbar extends Component {
         >
           Mined gems
         </a>
+        <ul className='navbar-nav px-3 justify-content-center d-flex flex-row'>
+          <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
+            <small className='text-white'><Link to="/dashboard">Dashboard</Link></small>
+          </li>
+          <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
+            <small className='text-white'><Link to="/user">User</Link></small>
+          </li>
+        </ul>
         <ul className='navbar-nav px-3'>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
           <small className='text-white'><span id='account'>{this.props.account}</span></small>

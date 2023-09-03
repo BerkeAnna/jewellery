@@ -7,6 +7,9 @@ import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
 import ProcessingList from './products/ProcessingList'
 import MinedGemsList from './products/MinedGemsList'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+
 
 class App extends Component {
 
@@ -87,7 +90,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>  <Navbar account={this.state.account} />
+      
+      <div className='d-flex'> 
+        <Router>
+          <Navbar account={this.state.account} />
+          <Routes>
+              <Route path="/processingList" component={ProcessingList} />
+              <Route path="/minedGemsList" component={MinedGemsList} />
+          </Routes>
+      </Router> 
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex"> 
