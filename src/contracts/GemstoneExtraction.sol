@@ -5,12 +5,14 @@ contract GemstoneExtraction {
     uint public minedGemCount = 0;
     mapping (uint => MinedGem) public minedGems;
 
+    //todo: extractionMethod enum -> select in form
+
     struct MinedGem{
         uint id;
         string gemType;
-        uint price;
+        uint price; 
         string miningLocation;
-      //  Date miningDate;
+      //Todo:  Date miningDate;
       
         string pointOfProcessing;
         string extractionMethod; //enum?

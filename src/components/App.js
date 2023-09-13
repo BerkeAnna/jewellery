@@ -81,6 +81,7 @@ class App extends Component {
       this.setState({ loading: false })
     })
   }
+  
 
   purchaseGem(id, price ){
     this.setState({ loading: true })

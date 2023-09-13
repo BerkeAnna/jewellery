@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 class Main extends Component {
 
   render() {
+    console.table(this.props.minedGems);
+
     return (
             <div id="tables">
                     <p>&nbsp;</p>
@@ -12,10 +14,12 @@ class Main extends Component {
                                 <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Method</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Owner</th>
-                                <th scope="col">Owner</th>
-                                <th scope="col"></th>
+                                <th scope="col">Process</th>
+                                <th scope="col">*</th>
                                 </tr>
                             </thead>
                             <tbody >
