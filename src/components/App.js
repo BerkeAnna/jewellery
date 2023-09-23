@@ -75,17 +75,34 @@ class App extends Component {
   }
 
   gemMining(gemType, price, miningLocation, extractionMethod ){
+    //const priceUint = parseInt(price);
+    console.log(price)
+    const gasLimit = 5000000; // Növelt gázlimit
+    const gasPrice = window.web3.utils.toWei('300000', 'gwei'); // Növelt gázár
+
     this.setState({ loading: true })
-    this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod ).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
-      this.setState({ loading: false })
-    })
+    this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod).send({ from: this.state.account, gasLimit: gasLimit, gasPrice: gasPrice })
+      .on('transactionHash', (hash) => {
+        console.log('Transaction Hash:', hash);
+      })
+      .on('receipt', (receipt) => {
+        console.log('Transaction Receipt:', receipt);
+        this.setState({ loading: false });
+      })
+      .on('error', (error) => {
+        console.error('Transaction Error:', error);
+        this.setState({ loading: false });
+      });
+
   }
   
 
   purchaseGem(id, price ){
+    //const priceUint = parseInt(price);
+    const gasLimit = 200000;
+    const gasPrice = window.web3.utils.toWei('100', 'gwei');
     this.setState({ loading: true })
-    this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price })
+    this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price, gasLimit: gasLimit, gasPrice: gasPrice})
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
     })
@@ -99,7 +116,6 @@ class App extends Component {
           {/* Navbar mindig látható */}
           <Navbar account={this.state.account} />
           <Routes>
-            {/* Az alábbi útvonalakon csak a Dashboard jelenik meg */}
             <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
@@ -121,26 +137,7 @@ class App extends Component {
             <main role="main" className="col-lg-12 d-flex"> 
             
             <div id="content">
-             {/* <MinedGemForm gemMining={this.gemMining} /> 
-              {this.state.loading ? (
-                <div id="loader" className="text-center">
-                  <p className="text-center">Loading...</p>
-                </div>
-              ) : (
-                <div>
-                  <MinedGemsList
-                    minedGems={this.state.minedGems}
-                    gemMining={this.gemMining}
-                    purchaseGem={this.purchaseGem}
-                  />
-                  <ProcessingList
-                    minedGems={this.state.minedGems}
-                    gemMining={this.gemMining}
-                    purchaseGem={this.purchaseGem}
-                  />
-                </div>
-              )}
-              */}
+             {}
             </div>
 
             </main>

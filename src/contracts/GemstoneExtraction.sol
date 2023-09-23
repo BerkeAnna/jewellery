@@ -14,7 +14,7 @@ contract GemstoneExtraction {
         string miningLocation;
       //Todo:  Date miningDate;
       
-        string pointOfProcessing;
+       // string pointOfProcessing;
         string extractionMethod; //enum?
         address payable owner;
         bool purchased;
@@ -26,7 +26,7 @@ contract GemstoneExtraction {
         uint price,
         string miningLocation,
         string extractionMethod,
-        string pointOfProcessing,
+        
         address payable owner,
         bool purchased
     );
@@ -37,7 +37,7 @@ contract GemstoneExtraction {
         uint price,
         string miningLocation,
         string extractionMethod,
-        string pointOfProcessing,
+       
         address payable owner,
         bool purchased
     );
@@ -51,9 +51,9 @@ contract GemstoneExtraction {
         //todo: write the table the pointOfProcessing
         string memory pointOfProcessing = "mine";
 
-        minedGems[minedGemCount] = MinedGem(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod,pointOfProcessing, msg.sender, false);
+        minedGems[minedGemCount] = MinedGem(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, false);
 
-        emit GemMining(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, pointOfProcessing, msg.sender, false);
+        emit GemMining(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, false);
     }
 
     function purchaseGem(uint _id) public payable{
@@ -66,9 +66,8 @@ contract GemstoneExtraction {
         _minedGem.owner = msg.sender;
         _minedGem.purchased = true;
         minedGems[_id] = _minedGem;
-        _minedGem.pointOfProcessing = "processing";
         address(_miner).transfer(msg.value);
-        emit GemPurchased(minedGemCount, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, _minedGem.pointOfProcessing, msg.sender, true);
+        emit GemPurchased(minedGemCount, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, true);
 
 
 

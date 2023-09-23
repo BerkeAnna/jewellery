@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Main extends Component {
+class MinedGemsList extends Component {
 
   render() {
     console.table(this.props.minedGems);
@@ -25,7 +25,7 @@ class Main extends Component {
                             <tbody >
                               {this.props.minedGems.map((minedGem, key) => {
                                 return(
-                                        !minedGem.purchased ? (
+                                        //!minedGem.purchased ? (
                                             <tr key={key}>
                                               <th scope="row">{minedGem.id.toString()}</th>
                                               <td>{minedGem.gemType}</td>
@@ -33,7 +33,7 @@ class Main extends Component {
                                               <td>{minedGem.extractionMethod}</td>
                                               <td>{window.web3.utils.fromWei(minedGem.price.toString(), 'Ether')} Eth</td>
                                               <td>{minedGem.owner}</td>
-                                              <td>{minedGem.pointOfProcessing}</td>
+                                              <td>{minedGem.pointOfProcessing }</td>
                                               <td>
                                                 <button
                                                   name={minedGem.id}
@@ -46,7 +46,7 @@ class Main extends Component {
                                                 </button>
                                               </td>
                                             </tr>
-                                          ) : null
+                                         // ) : null
                                     )
                               })}
                             
@@ -57,4 +57,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default MinedGemsList;

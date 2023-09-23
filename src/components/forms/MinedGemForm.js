@@ -24,24 +24,25 @@ class MinedGemForm extends Component {
                         required />
                     </div>
                     <div className="form-group mr-sm-2">
-                        <input
-                        id="gemPrice"
-                        type="text"
-                        ref={(input) => { this.price = input }}
-                        className="form-control"
-                        placeholder="Gem Price"
-                        required />
-                    </div>
+                      <input
+                          id="gemPrice"
+                          type="text"
+                          ref={(input) => { this.price = input }}
+                          className="form-control"
+                          placeholder="Gem Price"
+                          required />
+                      </div>
                     <div className="form-group mr-sm-2">
-                        <input
-                        id="miningLocation"
-                        type="text"
-                        ref={(input) => { this.miningLocation = input }}
-                        className="form-control"
-                        placeholder="miningLocation"
-                        required />
+                      <label htmlFor="extractionMethod">Mining location:</label>
+                      <input
+                      id="miningLocation"
+                      type="text"
+                      ref={(input) => { this.miningLocation = input }}
+                      className="form-control"
+                      placeholder="miningLocation"
+                      required />
                     </div>
-                    <div className="form-group mr-sm-2">
+                  <div className="form-group mr-sm-2">
                         <input
                         id="extractionMethod"
                         type="text"
@@ -56,6 +57,7 @@ class MinedGemForm extends Component {
             </div>
    );               
   }
+  
 }
 
 export default MinedGemForm;
