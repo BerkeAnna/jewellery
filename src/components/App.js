@@ -5,7 +5,7 @@ import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
 import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
-import ProcessingList from './products/ProcessingList'
+import BuyedGemsList from './products/BuyedGemsList'
 import MinedGemsList from './products/MinedGemsList'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -116,12 +116,13 @@ class App extends Component {
           {/* Navbar mindig látható */}
           <Navbar account={this.state.account} />
           <Routes>
+          <Route path="/" element={<Dashboard  />} />
             <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
                                                               purchaseGem={this.purchaseGem}
                                                               />} />
-            <Route path="/processingList" element={<ProcessingList  minedGems={this.state.minedGems}
+            <Route path="/buyedGemsList" element={<BuyedGemsList  minedGems={this.state.minedGems}
                                                                     gemMining={this.gemMining}
                                                                     purchaseGem={this.purchaseGem}
                                                                     />} />

@@ -2,9 +2,8 @@ import React from 'react';
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      sdaad
+    <div className='pt-5'>
+      <h1 className='text-info'>Hi!</h1>
     </div>
   );
 };

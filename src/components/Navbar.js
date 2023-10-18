@@ -12,26 +12,24 @@ class Navbar extends Component {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mined gems
+          <Link to="/" className='text-white'>Mined gems</Link>
+          
         </a>
         <ul className='navbar-nav px-3 justify-content-center d-flex flex-row'>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
-            <small className='text-white'><Link to="/addMinedGem">Add mined gem</Link></small>
+            <Link to="/addMinedGem" className='text-white'>Add mined gem</Link>
           </li>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
-            <small className='text-white'><Link to="/minedGems">Mined Gems</Link></small>
+          <Link to="/minedGems" className='text-white'>Mined Gems</Link>
           </li>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
-            <small className='text-white'><Link to="/processingList">Processing List</Link></small>
-          </li>
-          <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
-            <small className='text-white'><Link to="/ownMinedGems">Own mined gems</Link></small>
+           <Link to="/buyedGemsList" className='text-white'>Buyed Gems List</Link>
           </li>
         </ul>
         <ul className='navbar-nav px-3'>
-          <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
-          <small className='text-white'><span id='account'>{this.props.account}</span></small>
-             </li>
+        <li className='nav-item text-nowrap d-none d-sm-none d-sm-block ml-2'>
+            <Link className='text-info' to="/ownMinedGems"><span id='account'>{this.props.account}</span></Link>
+          </li>
         </ul>
       </nav>
     );
