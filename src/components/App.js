@@ -121,10 +121,12 @@ class App extends Component {
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
                                                               purchaseGem={this.purchaseGem}
+                                                              account={this.state.account}
                                                               />} />
             <Route path="/buyedGemsList" element={<BuyedGemsList  minedGems={this.state.minedGems}
                                                                     gemMining={this.gemMining}
                                                                     purchaseGem={this.purchaseGem}
+                                                                    account={this.state.account}
                                                                     />} />
             <Route path="/ownMinedGems" element={<OwnedByUser  minedGems={this.state.minedGems}
                                                                gemMining={this.gemMining}

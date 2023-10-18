@@ -25,7 +25,7 @@ class MinedGemsList extends Component {
                             <tbody >
                               {this.props.minedGems.map((minedGem, key) => {
                                 return(
-                                        minedGem.purchased==0 ? (
+                                        minedGem.purchased==0 && minedGem.owner!=this.props.account ? (
                                             <tr key={key}>
                                               <th scope="row">{minedGem.id.toString()}</th>
                                               <td>{minedGem.gemType}</td>
