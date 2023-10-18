@@ -4,6 +4,14 @@ import './App.css';
 import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
 import Main from './Main'
+import MinedGemForm from './forms/MinedGemForm';
+import ProcessingList from './products/ProcessingList'
+import MinedGemsList from './products/MinedGemsList'
+import Dashboard from './Dashboard'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import OwnedByUser from './OwnedByUser';
+
+
 
 class App extends Component {
 
@@ -67,16 +75,34 @@ class App extends Component {
   }
 
   gemMining(gemType, price, miningLocation, extractionMethod ){
-    this.setState({ loading: true })
-    this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod ).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
-      this.setState({ loading: false })
-    })
-  }
+    //const priceUint = parseInt(price);
+    console.log(price)
+    const gasLimit = 5000000; // Növelt gázlimit
+    const gasPrice = window.web3.utils.toWei('300000', 'gwei'); // Növelt gázár
 
-  purchaseGem(id, price ){
     this.setState({ loading: true })
-    this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price })
+    this.state.gemsE.methods.gemMining(gemType, price, miningLocation, extractionMethod).send({ from: this.state.account, gasLimit: gasLimit, gasPrice: gasPrice })
+      .on('transactionHash', (hash) => {
+        console.log('Transaction Hash:', hash);
+      })
+      .on('receipt', (receipt) => {
+        console.log('Transaction Receipt:', receipt);
+        this.setState({ loading: false });
+      })
+      .on('error', (error) => {
+        console.error('Transaction Error:', error);
+        this.setState({ loading: false });
+      });
+
+  }
+  
+  
+  purchaseGem(id, price ){
+    //const priceUint = parseInt(price);
+    const gasLimit = 9000000;
+    const gasPrice = window.web3.utils.toWei('700000', 'gwei');
+    this.setState({ loading: true })
+    this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price, gasLimit: gasLimit, gasPrice: gasPrice})
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
     })
@@ -84,17 +110,36 @@ class App extends Component {
 
   render() {
     return (
-      <div>  <Navbar account={this.state.account} />
+      
+      <div className='col-6'> 
+        <Router>
+          {/* Navbar mindig látható */}
+          <Navbar account={this.state.account} />
+          <Routes>
+            <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
+            <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
+                                                              gemMining={this.gemMining}
+                                                              purchaseGem={this.purchaseGem}
+                                                              />} />
+            <Route path="/processingList" element={<ProcessingList  minedGems={this.state.minedGems}
+                                                                    gemMining={this.gemMining}
+                                                                    purchaseGem={this.purchaseGem}
+                                                                    />} />
+            <Route path="/ownMinedGems" element={<OwnedByUser  minedGems={this.state.minedGems}
+                                                               gemMining={this.gemMining}
+                                                               purchaseGem={this.purchaseGem}
+                                                               account={this.state.account}
+                                                                    />} />
+          </Routes>
+        </Router> 
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 d-flex">
-              {this.state.loading 
-                ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
-                : <Main 
-                  minedGems = {this.state.minedGems} 
-                  gemMining={this.gemMining}
-                  purchaseGem={this.purchaseGem}
-                  /> }
+            <main role="main" className="col-lg-12 d-flex"> 
+            
+            <div id="content">
+             {}
+            </div>
+
             </main>
           </div>
         </div>

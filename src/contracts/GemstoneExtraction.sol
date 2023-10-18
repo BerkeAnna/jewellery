@@ -5,12 +5,16 @@ contract GemstoneExtraction {
     uint public minedGemCount = 0;
     mapping (uint => MinedGem) public minedGems;
 
+    //todo: extractionMethod enum -> select in form
+
     struct MinedGem{
         uint id;
         string gemType;
-        uint price;
+        uint price; 
         string miningLocation;
-      //  Date miningDate;
+      //Todo:  Date miningDate;
+      
+       // string pointOfProcessing;
         string extractionMethod; //enum?
         address payable owner;
         bool purchased;
@@ -22,6 +26,7 @@ contract GemstoneExtraction {
         uint price,
         string miningLocation,
         string extractionMethod,
+        
         address payable owner,
         bool purchased
     );
@@ -32,6 +37,7 @@ contract GemstoneExtraction {
         uint price,
         string miningLocation,
         string extractionMethod,
+       
         address payable owner,
         bool purchased
     );
@@ -42,6 +48,8 @@ contract GemstoneExtraction {
 
     function gemMining(string memory _gemType, uint _price, string memory _miningLocation, string memory _extractionMethod) public {
         minedGemCount++;
+        //todo: write the table the pointOfProcessing
+        string memory pointOfProcessing = "mine";
 
         minedGems[minedGemCount] = MinedGem(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, false);
 

@@ -32,7 +32,7 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
         let result, gemsCount
 
         before(async () => {
-            result = await gemstoneExtraction.gemMining('type', web3.utils.toWei('1', 'Ether'), 'africa', 'asd', { from: miner})
+            result = await gemstoneExtraction.gemMining('type', web3.utils.toWei('1', 'Ether'), 'africa', 0,0, { from: miner})
             gemsCount = await gemstoneExtraction.minedGemCount()
         })
 
@@ -45,8 +45,11 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
             assert.equal(event.gemType, 'type', 'type is correct')
             assert.equal(event.miningLocation, 'africa', 'location is correct')
             assert.equal(event.price, '1000000000000000000' , 'price is correct')
-            assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(event.extractionMethod, 0, 'extractionMethod is correct')
+            console.log(event)
+            assert.equal(event.pointOfProcessing, 0, 'point is correct')
             assert.equal(event.owner, miner , 'miner is correct')
+            assert.equal(event.purchased, false , 'miner is correct')
 
             //Failure
             await gemstoneExtraction.gemMining('', web3.utils.toWei('1', 'Ether'), { from: miner}).should.be.rejected;
@@ -59,7 +62,8 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
             assert.equal(gems.gemType, 'type', 'type is correct')
             assert.equal(gems.miningLocation, 'africa', 'location is correct')
             assert.equal(gems.price, '1000000000000000000' , 'price is correct')
-            assert.equal(gems.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(gems.extractionMethod, 0, 'extractionMethod is correct')
+            assert.equal(gems.pointOfProcessing, 0, 'point is correct')
             assert.equal(gems.owner, miner , 'miner is correct')
          })
 
@@ -75,7 +79,7 @@ contract('GemstoneExtraction', ([deployer, miner, buyer]) => {//todo
             assert.equal(event.gemType, 'type', 'type is correct')
             assert.equal(event.miningLocation, 'africa', 'location is correct')
             assert.equal(event.price, '1000000000000000000' , 'price is correct')
-            assert.equal(event.extractionMethod, 'asd', 'extractionMethod is correct')
+            assert.equal(event.extractionMethod, 0, 'extractionMethod is correct')
             assert.equal(event.owner, buyer , 'buyer is correct')
 
 
