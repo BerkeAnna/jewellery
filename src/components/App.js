@@ -96,11 +96,11 @@ class App extends Component {
 
   }
   
-
+  
   purchaseGem(id, price ){
     //const priceUint = parseInt(price);
-    const gasLimit = 200000;
-    const gasPrice = window.web3.utils.toWei('100', 'gwei');
+    const gasLimit = 9000000;
+    const gasPrice = window.web3.utils.toWei('700000', 'gwei');
     this.setState({ loading: true })
     this.state.gemsE.methods.purchaseGem(id).send({ from: this.state.account, value: price, gasLimit: gasLimit, gasPrice: gasPrice})
     .once('receipt', (receipt) => {
