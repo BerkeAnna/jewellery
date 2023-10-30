@@ -71,6 +71,7 @@ class App extends Component {
 
     this.gemMining = this.gemMining.bind(this)
     this.purchaseGem = this.purchaseGem.bind(this)
+    this.sellGem = this.sellGem.bind(this)
     
   }
 
@@ -108,6 +109,17 @@ class App extends Component {
     })
   }
 
+  sellGem(id, price ){
+    //const priceUint = parseInt(price);
+    const gasLimit = 9000000;
+    const gasPrice = window.web3.utils.toWei('700000', 'gwei');
+    this.setState({ loading: true })
+    this.state.gemsE.methods.sellGem(id).send({ from: this.state.account, value: price, gasLimit: gasLimit, gasPrice: gasPrice})
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    })
+  }
+
   render() {
     return (
       
@@ -132,6 +144,7 @@ class App extends Component {
                                                                gemMining={this.gemMining}
                                                                purchaseGem={this.purchaseGem}
                                                                account={this.state.account}
+                                                               sellGem={this.sellGem}
                                                                     />} />
           </Routes>
         </Router> 

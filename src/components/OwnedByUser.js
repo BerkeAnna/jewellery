@@ -39,10 +39,10 @@ class Main extends Component {
                         name={minedGem.id}
                         value={minedGem.price}
                         onClick={(event) => {
-                          this.props.purchaseGem(event.target.name, event.target.value);
+                          //this.props.purchaseGem(event.target.name, event.target.value);
                         }}
                       >
-                        Buy
+                        Process
                       </button>
                     </td>
                   </tr>
@@ -53,7 +53,7 @@ class Main extends Component {
           </tbody>
         </table>
      
-        <h2>List of buyed mined gems</h2>
+        <h2>List of processing gems</h2>
         <table className="table">
           <thead>
             <tr>
@@ -84,7 +84,18 @@ class Main extends Component {
                           this.props.purchaseGem(event.target.name, event.target.value);
                         }}
                       >
-                        Buy
+                        Selecting
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        name={minedGem.id}
+                        value={minedGem.price}
+                        onClick={(event) => {
+                          this.props.sellGem(event.target.name);
+                        }}
+                      >
+                        Sell
                       </button>
                     </td>
                   </tr>

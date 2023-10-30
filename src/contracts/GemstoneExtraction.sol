@@ -68,10 +68,21 @@ contract GemstoneExtraction {
         minedGems[_id] = _minedGem;
         address(_miner).transfer(msg.value);
         emit GemPurchased(minedGemCount, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, 1);
-
-
-
     }
 
+  /*
+ function sellGem(uint _id) public {
+        MinedGem storage _minedGem = minedGems[_id];
+        require(_minedGem.id > 0 && _minedGem.id <= minedGemCount);
+        require(_minedGem.owner == msg.sender);
+        require(_minedGem.purchased == 1);
+        msg.sender.transfer(_minedGem.price);
+        require(address(this).balance >= _minedGem.price, "Contract balance is insufficient");
 
+        _minedGem.purchased = 0;
+        minedGems[_id] = _minedGem;
+
+        emit GemPurchased(_minedGem.id, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, 0);
+    }
+*/
 }
