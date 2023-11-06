@@ -31,6 +31,7 @@ class App extends Component {
     }
   }
 
+  
   async loadBlockchainData() {
     const web3 = window.web3
     // Load account
