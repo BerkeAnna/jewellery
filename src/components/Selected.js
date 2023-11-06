@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Web3 from 'web3'
 import './App.css';
 import GemstoneExtraction from '../abis/GemstoneExtraction.json';
-import GemstoneSelecting from '../abis/GemstoneSelecting.json';
 import Navbar from './Navbar'
 import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
@@ -15,8 +14,8 @@ import OwnedByUser from './OwnedByUser';
 
 
 
-class App extends Component {
-
+class Selected extends Component {
+/*
   async componentWillMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
@@ -59,14 +58,6 @@ class App extends Component {
     }else{
       window.alert('Gemstone extraction contract not deployed to detected network.')
     }
-
-    const networkDataSelecting   = GemstoneSelecting.networks[networkId];
-    if(networkDataSelecting){
-      const gemsS  = web3.eth.Contract(GemstoneSelecting.abi, networkData.address)
-      this.setState({ gemsS  })
-    }else {
-      window.alert('GemstoneSelecting contract not deployed to detected network.');
-    }
    
   }
 
@@ -76,17 +67,12 @@ class App extends Component {
       account: '',
       minedGemCount: 0, //IMPORTANT this name is same in .sol
       minedGems: [], // Inicializáld a products állapotot üres tömbként
-      selectedGems: [],
-      selectedGemCount: 0,
-      loading: true, // Inicializáld a loading állapotot true-ként
-      gemsS: null
+      loading: true // Inicializáld a loading állapotot true-ként
     };
 
     this.gemMining = this.gemMining.bind(this)
     this.purchaseGem = this.purchaseGem.bind(this)
     this.sellGem = this.sellGem.bind(this)
-    this.gemSelecting = this.gemSelecting.bind(this)
-    
     
   }
 
@@ -111,26 +97,25 @@ class App extends Component {
       });
 
   }
-
   gemSelecting(minedGemId, height, width, thickness, carat, color, gemType,price){
     console.log(price);
     const gasLimit = 5000000; // Növelt gázlimit
     const gasPrice = window.web3.utils.toWei('300000', 'gwei'); // Növelt gázár
-    this.state.gemsS.methods.gemSelecting(minedGemId, height, width, thickness, carat, color, gemType,price).send({ from: this.state.account, gasLimit: gasLimit, gasPrice: gasPrice })
-        .on('transactionHash', (hash) => {
-          console.log('Transaction Hash:', hash);
-        })
-        .on('receipt', (receipt) => {
-          console.log('Transaction Receipt:', receipt);
-          this.setState({ loading: false });
-        })
-        .on('error', (error) => {
-          console.error('Transaction Error:', error);
-          this.setState({ loading: false });
-        });
+    this.setState({ loading: true })
+    this.state.gemsE.methods.gemSelecting(minedGemId, height, width, thickness, carat, color, gemType,price).send({ from: this.state.account, gasLimit: gasLimit, gasPrice: gasPrice })
+      .on('transactionHash', (hash) => {
+        console.log('Transaction Hash:', hash);
+      })
+      .on('receipt', (receipt) => {
+        console.log('Transaction Receipt:', receipt);
+        this.setState({ loading: false });
+      })
+      .on('error', (error) => {
+        console.error('Transaction Error:', error);
+        this.setState({ loading: false });
+      });
 
   }
-  
   
   
   purchaseGem(id, price ){
@@ -160,13 +145,13 @@ class App extends Component {
       
       <div className='col-6'> 
         <Router>
-          {/* Navbar mindig látható */}
+          {/* Navbar mindig látható */}/*
           <Navbar account={this.state.account} />
           <Routes>
           <Route path="/" element={<Dashboard  />} />
             <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
-            <Route path="/addSelectedGem" element={<SelectedGemForm gemSelecting={this.gemSelecting} />} />
             
+            <Route path="/addSelectedGem" element={<SelectedGemForm gemSelecting={this.gemSelecting} />} />
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
                                                               purchaseGem={this.purchaseGem}
@@ -199,6 +184,7 @@ class App extends Component {
       </div>
     );
   }
+  */
 }
 
-export default App;
+export default Selected;
