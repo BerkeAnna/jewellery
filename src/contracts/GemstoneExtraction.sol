@@ -17,7 +17,7 @@ contract GemstoneExtraction {
        // string pointOfProcessing;
         string extractionMethod; //enum?
         address payable owner;
-        bool purchased;
+        int purchased;
     }
 
     event GemMining(
@@ -28,7 +28,7 @@ contract GemstoneExtraction {
         string extractionMethod,
         
         address payable owner,
-        bool purchased
+        int purchased
     );
 
     event GemPurchased(
@@ -39,7 +39,7 @@ contract GemstoneExtraction {
         string extractionMethod,
        
         address payable owner,
-        bool purchased
+        int purchased
     );
 
     constructor() public {
@@ -51,9 +51,9 @@ contract GemstoneExtraction {
         //todo: write the table the pointOfProcessing
         string memory pointOfProcessing = "mine";
 
-        minedGems[minedGemCount] = MinedGem(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, false);
+        minedGems[minedGemCount] = MinedGem(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, 0);
 
-        emit GemMining(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, false);
+        emit GemMining(minedGemCount, _gemType, _price, _miningLocation, _extractionMethod, msg.sender, 0);
     }
 
     function purchaseGem(uint _id) public payable{
@@ -61,17 +61,28 @@ contract GemstoneExtraction {
         address payable _miner = _minedGem.owner;
         require(_minedGem.id > 0 && _minedGem.id <= minedGemCount);
         require(msg.value >= _minedGem.price);
-        require(!_minedGem.purchased);
+        require(_minedGem.purchased == 0);
         require(_miner != msg.sender);
         _minedGem.owner = msg.sender;
-        _minedGem.purchased = true;
+        _minedGem.purchased = 1;
         minedGems[_id] = _minedGem;
         address(_miner).transfer(msg.value);
-        emit GemPurchased(minedGemCount, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, true);
-
-
-
+        emit GemPurchased(minedGemCount, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, 1);
     }
 
+  /*
+ function sellGem(uint _id) public {
+        MinedGem storage _minedGem = minedGems[_id];
+        require(_minedGem.id > 0 && _minedGem.id <= minedGemCount);
+        require(_minedGem.owner == msg.sender);
+        require(_minedGem.purchased == 1);
+        msg.sender.transfer(_minedGem.price);
+        require(address(this).balance >= _minedGem.price, "Contract balance is insufficient");
 
+        _minedGem.purchased = 0;
+        minedGems[_id] = _minedGem;
+
+        emit GemPurchased(_minedGem.id, _minedGem.gemType, _minedGem.price, _minedGem.miningLocation, _minedGem.extractionMethod, msg.sender, 0);
+    }
+*/
 }

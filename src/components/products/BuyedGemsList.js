@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 
-class MinedGemsList extends Component {
+class buyedGemsList extends Component {
 
   render() {
-    //console.table(this.props.minedGems);
-
     return (
             <div id="tables">
                     <p>&nbsp;</p>
-                    <h2>List of mined gems</h2>
+                    <h2>List of gems waiting to be processed</h2>
                         <table className="table">
                             <thead>
                                 <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Method</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Owner</th>
-                                <th scope="col">Process</th>
+                                <th scope="col">*</th>
+                                <th scope="col">*</th>
+                                <th scope="col">*</th>
+                                <th scope="col">*</th>
+                                <th scope="col">*</th>
+                                <th scope="col">*</th>
                                 <th scope="col">*</th>
                                 </tr>
                             </thead>
                             <tbody >
                               {this.props.minedGems.map((minedGem, key) => {
                                 return(
-                                        minedGem.purchased==0 && minedGem.owner!=this.props.account ? (
+                                    
+                                        minedGem.purchased == 1 && minedGem.owner!=this.props.account ? (
                                             <tr key={key}>
                                               <th scope="row">{minedGem.id.toString()}</th>
                                               <td>{minedGem.gemType}</td>
@@ -33,7 +32,7 @@ class MinedGemsList extends Component {
                                               <td>{minedGem.extractionMethod}</td>
                                               <td>{window.web3.utils.fromWei(minedGem.price.toString(), 'Ether')} Eth</td>
                                               <td>{minedGem.owner}</td>
-                                              <td>{minedGem.pointOfProcessing }</td>
+                                              <td>{minedGem.pointOfProcessing}</td>
                                               <td>
                                                 <button
                                                   name={minedGem.id}
@@ -52,9 +51,11 @@ class MinedGemsList extends Component {
                             
                             </tbody>
                         </table>
+
+
             </div>
     );
   }
 }
 
-export default MinedGemsList;
+export default buyedGemsList;

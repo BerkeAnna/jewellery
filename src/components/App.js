@@ -5,7 +5,7 @@ import GemstoneExtraction from '../abis/GemstoneExtraction.json';
 import Navbar from './Navbar'
 import Main from './Main'
 import MinedGemForm from './forms/MinedGemForm';
-import ProcessingList from './products/ProcessingList'
+import BuyedGemsList from './products/BuyedGemsList'
 import MinedGemsList from './products/MinedGemsList'
 import Dashboard from './Dashboard'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -31,7 +31,6 @@ class App extends Component {
     }
   }
 
-  
   async loadBlockchainData() {
     const web3 = window.web3
     // Load account
@@ -72,6 +71,7 @@ class App extends Component {
 
     this.gemMining = this.gemMining.bind(this)
     this.purchaseGem = this.purchaseGem.bind(this)
+    this.sellGem = this.sellGem.bind(this)
     
   }
 
@@ -109,6 +109,17 @@ class App extends Component {
     })
   }
 
+  sellGem(id, price ){
+    //const priceUint = parseInt(price);
+    const gasLimit = 9000000;
+    const gasPrice = window.web3.utils.toWei('700000', 'gwei');
+    this.setState({ loading: true })
+    this.state.gemsE.methods.sellGem(id).send({ from: this.state.account, value: price, gasLimit: gasLimit, gasPrice: gasPrice})
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    })
+  }
+
   render() {
     return (
       
@@ -117,19 +128,23 @@ class App extends Component {
           {/* Navbar mindig látható */}
           <Navbar account={this.state.account} />
           <Routes>
+          <Route path="/" element={<Dashboard  />} />
             <Route path="/addMinedGem" element={<MinedGemForm gemMining={this.gemMining} />} />
             <Route path="/minedGems" element={<MinedGemsList  minedGems={this.state.minedGems}
                                                               gemMining={this.gemMining}
                                                               purchaseGem={this.purchaseGem}
+                                                              account={this.state.account}
                                                               />} />
-            <Route path="/processingList" element={<ProcessingList  minedGems={this.state.minedGems}
+            <Route path="/buyedGemsList" element={<BuyedGemsList  minedGems={this.state.minedGems}
                                                                     gemMining={this.gemMining}
                                                                     purchaseGem={this.purchaseGem}
+                                                                    account={this.state.account}
                                                                     />} />
             <Route path="/ownMinedGems" element={<OwnedByUser  minedGems={this.state.minedGems}
                                                                gemMining={this.gemMining}
                                                                purchaseGem={this.purchaseGem}
                                                                account={this.state.account}
+                                                               sellGem={this.sellGem}
                                                                     />} />
           </Routes>
         </Router> 
